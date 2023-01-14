@@ -33,7 +33,7 @@ CREATE TABLE cards(
     dp INT NOT NULL,
     cardnumber VARCHAR(255) NOT NULL PRIMARY KEY,
     maineffect VARCHAR(255),
-    soureeffect VARCHAR(255),
+    sourcceffect VARCHAR(255),
     set_nameVARCHAR(255) NOT NULL,
     card_sets VARCHAR(255) NOT NULL,
     image_url VARCHAR(255) NOT NULL

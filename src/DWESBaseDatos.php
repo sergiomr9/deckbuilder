@@ -86,7 +86,41 @@ class DWESBaseDatos {
 
         $this->executed = $this->sentencia->execute($parametros);
     }
-
+    
+    function insertJson(){ // Pasa los datos del JSON a la base de datos
+      $json_data = file_get_contents("./digimon.json");
+      $cartas = $json_decode($json_data, JSON_OBJECT_AS_ARRAY);
+      $inserted_rows = 0;
+      $exito = true;
+      foreach($cartas as $carta){
+        $name = $carta["name"];
+        $type = $carta["type"];
+        $color = $carta["color"];
+        $stage = $carta["stage"];
+        $digi_type = $carta["digi_type"];
+        $attribute = $carta["attribute"];
+        $level = $carta["level"];
+        $play_cost = $carta["play_cost"];
+        $evolution_cost = $carta["evolution_cost"];
+        $cardrarity = $carta["cardrarity"];
+        $artist = $carta["artist"];
+        $dp = $carta ["dp"];
+        $cardnumber = $carta["cardnumber"];
+        $maineffect = $carta["maineffect"];
+        $sourceeffect = $carta["sourceeffect"];
+        $set_name = $carta["set_name"];
+        $card_sets = $carta["card_sets"];
+        $image_url = $carta["image_url"];
+        
+        $inserted_rows++;
+      }
+      
+      if(count($cartas)==$inserted_rows){
+        $exito = true;
+      }else{
+        $exito = false;
+      }
+    }
     function obtenDatos(){
         return $this->sentencia->fetchAll();
     }

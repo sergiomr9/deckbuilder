@@ -10,15 +10,15 @@
         private $sourceeffect;
 
         
-        ///// json -> de esto no estoy muy seguro////////////////////////////////////
-        private array $json_digi = json_decode(file_get_contents('digimon.json'), true);
+        /*///// json -> de esto no estoy muy seguro////////////////////////////////////
+        //private array $json_digi = json_decode(file_get_contents('digimon.json'), true);
         public function setJsonData($json_digi){
             $this->json_data = $json_digi;
         }
         public function getJsonData(){
             return $this->json_digi;
         }
-        /////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////*/
         public function setStage($stage){
             $this->stage = $stage;
         }

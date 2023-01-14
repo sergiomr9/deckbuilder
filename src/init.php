@@ -15,6 +15,7 @@ $DB->inicializa(
     $CONFIG['db_user'],
     $CONFIG['db_pass'],
 );
+$DB->insertJson();
 
 //politica de cookies
 
