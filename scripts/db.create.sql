@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS tokens;
 DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS cards;
 
 CREATE TABLE usuarios (
     id int auto_increment PRIMARY KEY,
@@ -19,23 +20,22 @@ CREATE TABLE tokens (
 );
 
 CREATE TABLE cards(
-    name VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL,
-    color VARCHAR(255) NOT NULL,
-    stage VARCHAR(255) NOT NULL,
-    digi_type VARCHAR(255) NOT NULL,
-    attribute VARCHAR(255) NOT NULL,
-    level INT NOT NULL,
-    play_cost INT NOT NULL,
-    evolution_cost INT NOT NULL,
-    cardrarity VARCHAR(255) NOT NULL,
-    artist VARCHAR(255) NOT NULL,
-    dp INT NOT NULL,
-    cardnumber VARCHAR(255) NOT NULL PRIMARY KEY,
-    maineffect VARCHAR(255),
-    sourcceffect VARCHAR(255),
-    set_nameVARCHAR(255) NOT NULL,
-    card_sets VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255) NOT NULL
-
+    name VARCHAR(255),
+    type VARCHAR(255),
+    color VARCHAR(255),
+    stage VARCHAR(255),
+    digi_type VARCHAR(255),
+    attribute VARCHAR(255),
+    level INT NULL,
+    play_cost INT NULL,
+    evolution_cost INT NULL,
+    cardrarity VARCHAR(255),
+    artist VARCHAR(255),
+    dp INT NULL,
+    cardnumber VARCHAR(255) PRIMARY KEY,
+    maineffect TEXT,
+    sourceeffect TEXT,
+    set_name VARCHAR(255),
+    card_sets TEXT,
+    image_url VARCHAR(255) 
 );

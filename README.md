@@ -10,7 +10,7 @@ GRANT ALL PRIVILEGES ON deckbuilder.* TO 'deckbuilder'@'localhost' WITH GRANT OP
 
 Comenzar aplicación en limpio
 
-mysql -u deckbuilder -p deckbuilder < scripts/db.create.sql
+mysql -u deckbuilder -p deckbuilder < scripts/db.create.sql;
 
 Ejecutar servidor dev
 ./rundevserver.sh 8000

@@ -71,7 +71,7 @@ body{
   .cards{
     background-color:rgb(42, 42, 42);
     margin-top: 1.5vw;
-    height: 40vw;
+    height: 43.5vw;
   }
   .card{
     padding: 1.2vw;
@@ -81,3 +81,58 @@ body{
     margin-right: 2vw;
     margin-bottom:1vw;
   }
+
+  table {  
+
+    border-collapse: collapse;  
+
+}  
+
+    .inline{   
+
+        display: inline-block;    
+
+        margin: 20px 0px;   
+
+    }            
+
+    input, button{   
+
+        height: 34px;   
+
+    }    
+
+.items {   
+
+    display: center;
+    margin-left:35% ;   
+
+}   
+
+.items a {   
+
+    font-weight:bold;   
+
+    font-size:18px;   
+
+    color: rgb(207, 207, 207);;   
+
+    float: center;   
+
+    padding: 8px 16px;   
+
+    text-decoration: none;   
+
+    border:1px solid rgb(207, 207, 207);;  
+
+    margin: 2px; 
+
+}   
+
+  
+
+.items a:hover:not(.active) {   
+
+    border-color: rgb(219, 51, 219);   
+
+}   
