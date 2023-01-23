@@ -105,25 +105,48 @@
         </div>
         <div class="cards">
             <div class="card">
-                <!-- <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt="">
-                <img src= https://images.digimoncard.io/images/cards/ST9-15.jpg width="242" height="351" alt=""> -->
-                <?php 
-                
-                    while ($row = mysqli_fetch_array($result)) {
-                        echo '<img src="'.$row['image_url'].'"width="242" height="351" onclick="yourFunction()">';
-                    }
-                    
-                ?>
+            <?php
+            $id = 1;
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<img src="'.$row['image_url'].'" width="242" height="351" id="imageButton" class="open-modal" data-open="modal-'.$id.'" onclick="buttonClicked()">';
+                    echo '<div class="modal" id="modal-'.$id.'">
+                            <div class="modal-dialog">
+                                <header class="modal-header">
+                                    <button class="close-modal">X</button>
+                                    "'.$row['name'].'"
+                                    <img src="'.$row['image_url'].'" width="242" height="351" >
+                                    "'.$row['maineffect'].'"
+                                    "'.$row['sourceeffect'].'"
+                                </header>
+                            </div>
+                          </div>';
+                    $id++;
+                } 
+            ?>
+            <script>
+                 // Get the modal element
+    var modal;
+    var btn = document.querySelectorAll('.open-modal');
+    btn.forEach(function(el) {
+        el.addEventListener('click', function(){
+            modal = document.getElementById(this.dataset.open);
+            modal.style.display = "block";
+        });
+    });
+    var span = document.getElementsByClassName("close-modal");
+    for(let i = 0; i< span.length; i++){
+        span[i].onclick = function() {
+            modal.style.display = "none";
+        }
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+            </script>
+
+
                 
                 <div class="Items">    
 
@@ -136,7 +159,8 @@
                     $total_pages = ceil($total_rows / $limit);
 
                     if($page_number>=2){   
-                        echo "<a href='index.php?page=".($page_number-1)."'>  Prev </a>";   
+                        echo "<a href='index.php?page=".($page_number-1)."'>  Prev </a>";  
+                        echo "<a href='index.php?page='1'>1</a>"; 
                     }   
 
                     if($page_number < 3){
@@ -179,12 +203,7 @@
                 
             
         </div>
-        <script>
-            function yourFunction() {
-                
-            }
-        </script>
-        <script src="cab.js"></script>
+        
         
     </body>
 </html>
