@@ -18,13 +18,34 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-//ajax para guardar los valores del select sin enviar el form
-// function saveOption() {
-//     var select = document.getElementById("set_name");
-//     var selectedOption = select.options[select.selectedIndex].value;
-//     $.ajax({
-//       type: "POST",
-//       url: "save.php",
-//       data: { option: selectedOption }
+//script de live search
+
+// $(document).ready(function(){
+//     $('#search').keyup(function(){
+//         var txt = $(this).val();
+//         if(text != ''){
+//             $.ajax({
+//                 url:"index.php",
+//                 method:"post",
+//                 data:{search:txt},
+//                 dataType:"text",
+//                 success:function(data)
+//                 {
+//                     $('#card').html(data);
+//                 }
+//             })
+//         }else{
+//             $('#card').html('');
+//             $.ajax({
+//                 url:"index.php",
+//                 method:"post",
+//                 data:{search:txt},
+//                 dataType:"text",
+//                 success:function(data)
+//                 {
+//                     $('#card').html(data);
+//                 }
+//             })
+//         }
 //     });
-//   }
+// });
