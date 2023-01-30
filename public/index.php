@@ -1,6 +1,6 @@
 <?php
 require_once('cab.php');
-require('../src/init.php');
+require_once('../src/init.php');
 
 //paginar los resultados de la consulta
 
@@ -29,49 +29,8 @@ $total_pages = ceil($total_rows / $limit);
 
 
 ////////////BUSQUEDA LIVE//////////////////
-if (isset($_POST['input'])) {
-    $input = addslashes($_POST['input']);
-    $query = "SELECT * FROM cards WHERE name LIKE '{$input}%'" . $inital_page . ',' . $limit;
-    $result = mysqli_query($conn,$query);
-    if (mysqli_num_rows($result)>0) {
-        $id = 1;
-        while ($row = mysqli_fetch_array($result)) {
-            echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
-            echo '<div class="modal" id="modal-' . $id . '">
-                        <div class="modal-dialog">
-                            <header class="modal-header">
-                                <button class="close-modal">X</button>
-                                "' . $row['name'] . '"
-                                <img src="' . $row['image_url'] . '" width="242" height="351" >
-                                "' . $row['maineffect'] . '"
-                                "' . $row['sourceeffect'] . '"
-                            </header>
-                        </div>
-                      </div>';
-            $id++;
-        }
-    }else{
-        $sql = "SELECT * FROM cards LIMIT " . $inital_page . ',' . $limit;
-            $result = mysqli_query($conn, $sql);
-            $id = 1;
-            while ($row = mysqli_fetch_array($result)) {
-                echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
-                echo '<div class="modal" id="modal-' . $id . '">
-                            <div class="modal-dialog">
-                                <header class="modal-header">
-                                    <button class="close-modal">X</button>
-                                    "' . $row['name'] . '"
-                                    <img src="' . $row['image_url'] . '" width="242" height="351" >
-                                    "' . $row['maineffect'] . '"
-                                    "' . $row['sourceeffect'] . '"
-                                </header>
-                            </div>
-                          </div>';
-                $id++;
-            }
-    }
-}
-///////////////////////////////////////////
+
+/////////////////////////////////////////
 
 
 ?>
@@ -132,7 +91,7 @@ if (isset($_POST['input'])) {
             </form>
         </form>
         <div class="search">
-            <form action="" method="get">
+            <form action="" method="post">
                 <input type="text" placeholder="   CARD NAME..." name="search" id="search">
 
             </form>
@@ -144,9 +103,53 @@ if (isset($_POST['input'])) {
         <div class="card" id="card">
             <?php
             //datos de la select por pagina
-            
+            if (isset($_POST['input'])) {
+                $input = $_POST['input'];
+                $sql = "SELECT * FROM cards WHERE name LIKE'{$input}%' LIMIT " . $inital_page . ',' . $limit;
+                $result = mysqli_query($conn,$sql);
+                 
+                 if (mysqli_num_rows($result)>0) {
+                     $id = 1;
+                     while ($row = mysqli_fetch_array($result)) {
+                         echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
+                         echo '<div class="modal" id="modal-' . $id . '">
+                                     <div class="modal-dialog">
+                                         <header class="modal-header">
+                                             <button class="close-modal">X</button>
+                                             "' . $row['name'] . '"
+                                             <img src="' . $row['image_url'] . '" width="242" height="351" >
+                                             "' . $row['maineffect'] . '"
+                                             "' . $row['sourceeffect'] . '"
+                                         </header>
+                                     </div>
+                                   </div>';
+                         $id++;
+                     }
+                 }
+            }else{
+                
+                    $sql = "SELECT * FROM cards LIMIT " . $inital_page . ',' . $limit;
+                    $result = mysqli_query($conn, $sql);
+                    $id = 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
+                        echo '<div class="modal" id="modal-' . $id . '">
+                                    <div class="modal-dialog">
+                                        <header class="modal-header">
+                                            <button class="close-modal">X</button>
+                                            "' . $row['name'] . '"
+                                            <img src="' . $row['image_url'] . '" width="242" height="351" >
+                                            "' . $row['maineffect'] . '"
+                                            "' . $row['sourceeffect'] . '"
+                                        </header>
+                                    </div>
+                                  </div>';
+                        $id++;
+                    }
+                
+            }
             ?>
-
+            
 
 
 
@@ -209,18 +212,19 @@ if (isset($_POST['input'])) {
                     //alert(input);
                     if (input != "") {
                         $.ajax({
-                            url: "index.php",
-                            method: "POST",
+                            
+                            method:"POST",
                             data: {
                                 input: input
                             },
-                            fuccess: function($data) {
-                                $("#card").html(data);
+                            success: function($data) {
+                                $("#card").html($data);
                             }
                         });
                     }
                 });
             });
+           
         </script>
         <script src="index.js"></script>
 </body>

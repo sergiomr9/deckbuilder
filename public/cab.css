@@ -26,8 +26,8 @@ li{
   padding: 1vw;
   margin-top: 1vw;
 }
-/* login */
-/* .log>ul{
+
+ .log>ul{
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -71,8 +71,8 @@ option:hover {
  form>input[type=checkbox]{
   display: block;
   color:white;
-} */
-/* #set_name{
+} 
+ #set_name{
   color:white;
 }
 .cards{
@@ -141,8 +141,8 @@ table {
   border-color: rgb(219, 51, 219);   
 
 }  
-/* Estilos del modal  */
-/* .modal {
+
+.modal {
 display: none;
 position: fixed;
 z-index: 1;
@@ -163,6 +163,6 @@ width: 80%;
 
 .modal-header {
 text-align :center ;
-}  */
+}   */
 
-/* desplegable */
+/* desplegable
