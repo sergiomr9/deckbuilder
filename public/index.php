@@ -5,15 +5,7 @@ require_once('../src/init.php');
 //paginar los resultados de la consulta
 
 //
-$limit = 12;
-//actualizar la pagina activa
-if (isset($_GET["page"])) {
-    $page_number = $_GET["page"];
-} else {
-    $page_number = 1;
-}
-//coger la pagina incial
-$inital_page = ($page_number - 1) * $limit;
+
 //data de las columnas por pagina
 $sql = "SELECT image_url FROM cards";
 $resultado = mysqli_query($conn, $sql);
@@ -23,8 +15,21 @@ $total_rows = mysqli_num_rows($resultado);
 $total_pages = ceil($total_rows / $limit);
 
 
-
-
+$expansion = "";
+$orden = "";
+$asc = "";
+//busquedas del formulario
+if (isset($_GET['enviar'])) {
+    if (isset($_GET['set_name'])) {
+        $expansion = $_GET['set_name'];
+    }
+    if (isset($_GET['type'])) {
+        $orden = $_GET['type'];
+    }
+    if (isset($_GET['asce'])) {
+        $asc = $_GET['asce'];
+    }
+}
 
 
 
@@ -65,38 +70,35 @@ $total_pages = ceil($total_rows / $limit);
                     }
                     ?>
                 </select>
-            </form>
 
-            <form action="" method="get">
                 <select name="type" id="type">
                     <option value="" disabled selected hidden>Orden</option>
-                    <option value="">nombre de carta</option>
-                    <option value="">color</option>
-                    <option value="">card type</option>
-                    <option value="">rareza</option>
-                    <option value="">poder</option>
-                    <option value="">coste</option>
-                    <option value="">stage</option>
-                    <option value="">id</option>
-                    <option value="">evolution cost</option>
-                    <option value="">play cost</option>
+                    <option value="cardname">nombre de carta</option>
+                    <option value="cardcolor">color</option>
+                    <option value="cardtype">card type</option>
+                    <option value="cardrarity">rareza</option>
+                    <option value="cardpower">poder</option>
+                    <option value="cardstage">stage</option>
+                    <option value="cardid">id</option>
+                    <option value="cardevocost">evolution cost</option>
+                    <option value="cardplaycost">play cost</option>
                 </select>
-            </form>
-            <form action="" method="get">
+
+
                 <select name="asce" id="asc">
                     <option value="" disabled selected hidden>Ascendiente</option>
-                    <option value="bt1">Ascendiente</option>
-                    <option value="">Descendiente</option>
+                    <option value="asc">Ascendiente</option>
+                    <option value="desc">Descendiente</option>
                 </select>
+                <input type="submit" value="aplicar filtros" name="enviar">
             </form>
-        </form>
-        <div class="search">
-            <form action="" method="post">
-                <input type="text" placeholder="   CARD NAME..." name="search" id="search">
+            <div class="search">
+                <form action="" method="post">
+                    <input type="text" placeholder="   CARD NAME..." name="search" id="search">
 
-            </form>
+                </form>
 
-        </div>
+            </div>
 
     </div>
     <div class="cards">
@@ -106,13 +108,13 @@ $total_pages = ceil($total_rows / $limit);
             if (isset($_POST['input'])) {
                 $input = $_POST['input'];
                 $sql = "SELECT * FROM cards WHERE name LIKE'{$input}%' LIMIT " . $inital_page . ',' . $limit;
-                $result = mysqli_query($conn,$sql);
-                 
-                 if (mysqli_num_rows($result)>0) {
-                     $id = 1;
-                     while ($row = mysqli_fetch_array($result)) {
-                         echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
-                         echo '<div class="modal" id="modal-' . $id . '">
+                $result = mysqli_query($conn, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    $id = 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
+                        echo '<div class="modal" id="modal-' . $id . '">
                                      <div class="modal-dialog">
                                          <header class="modal-header">
                                              <button class="close-modal">X</button>
@@ -123,17 +125,17 @@ $total_pages = ceil($total_rows / $limit);
                                          </header>
                                      </div>
                                    </div>';
-                         $id++;
-                     }
-                 }
-            }else{
-                
-                    $sql = "SELECT * FROM cards LIMIT " . $inital_page . ',' . $limit;
-                    $result = mysqli_query($conn, $sql);
-                    $id = 1;
-                    while ($row = mysqli_fetch_array($result)) {
-                        echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
-                        echo '<div class="modal" id="modal-' . $id . '">
+                        $id++;
+                    }
+                }
+            } else {
+
+                $sql = "SELECT * FROM cards LIMIT " . $inital_page . ',' . $limit;
+                $result = mysqli_query($conn, $sql);
+                $id = 1;
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<img src="' . $row['image_url'] . '" width="242" height="351" id="imageButton" class="open-modal" data-name="' . $row['name'] . '" data-open="modal-' . $id . '" onclick="buttonClicked()">';
+                    echo '<div class="modal" id="modal-' . $id . '">
                                     <div class="modal-dialog">
                                         <header class="modal-header">
                                             <button class="close-modal">X</button>
@@ -144,12 +146,11 @@ $total_pages = ceil($total_rows / $limit);
                                         </header>
                                     </div>
                                   </div>';
-                        $id++;
-                    }
-                
+                    $id++;
+                }
             }
             ?>
-            
+
 
 
 
@@ -212,19 +213,49 @@ $total_pages = ceil($total_rows / $limit);
                     //alert(input);
                     if (input != "") {
                         $.ajax({
-                            
-                            method:"POST",
+                            url:'busqueda.php',
+                            method: "POST",
                             data: {
                                 input: input
                             },
                             success: function($data) {
                                 $("#card").html($data);
+                                console.log($data);
+                                // fetch('dbc.php')
+                                // .then(res => res.json())
+                                // .then(dato =>{
+                                //     //$("#card").html(dato);
+                                //     console.log(dato);
+                                    
+
+                                //     let cartas = '';
+
+                                //     dato.forEach(carta => {
+                                //         cartas+= `
+                                //         <img src="' ${carta.image_url}'" width="242" height="351" id="imageButton" class="open-modal" data-name="'${carta.name}'" data-open="modal-' . $id . '" onclick="buttonClicked()">
+                                //         <div class="modal" id="modal-' . $id . '">
+                                //                     <div class="modal-dialog">
+                                //                         <header class="modal-header">
+                                //                             <button class="close-modal">X</button>
+                                //                             "'${carta.name}'"
+                                //                             <img src="'${carta.image_url}'" width="242" height="351" >
+                                //                             "'${carta.maineffect}'"
+                                //                             "'${carta.sourceeffect}'"
+                                //                         </header>
+                                //                     </div>
+                                //                 </div>
+                                        
+                                //         `;
+                                //     });
+
+                                //     document.getElementById('card').innerHTML = cartas;
+                                //});
                             }
                         });
                     }
                 });
             });
-           
+
         </script>
         <script src="index.js"></script>
 </body>
